@@ -46,14 +46,18 @@ const addMany = async (idsArr, Key, newData, idFrom) => {
     { $push: { [Key]: newData } },
     { new: true }
   );
-  const upNewData = { ...newData, isSent: true, isRecieved: false };
-  // console.log(upNewData, 22);
-  idFrom ? addOne(idFrom, Key, upNewData) : null; //update the sender
+  if (idFrom) {
+    const upNewData = { ...newData, isSent: true, isRecieved: false };
+    // console.log(upNewData, 22);
+    addOne(idFrom, Key, upNewData); //update the sender
+  }
   return data;
 };
 
-const readByFlags = async (userId, flag) => {
+const readByFlags = async (userId, flag, validate) => {
   //get chats by flags
+
+  let resolt = await usersModel.findById(userId).populate("chats");
 };
 
 module.exports = {

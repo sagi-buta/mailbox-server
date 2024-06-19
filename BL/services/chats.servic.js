@@ -22,11 +22,12 @@ let funcs = {
 };
 
 async function getChatsServic(userId, flag) {
-  let resolt = await userCtrl.readByFlags(userId, flag);
+  let resolt = await userCtrl.readByFlags(userId, flag, validate);
   return resolt;
 }
 
 async function newMsgServic(newMsgObj) {
+  // if (!newMsgObj.members[0]?._id) throw "Invalid id provided members";
   const updateMsgObj = {
     subject: newMsgObj.subject,
     msg: { from: newMsgObj._id, content: newMsgObj.content },
